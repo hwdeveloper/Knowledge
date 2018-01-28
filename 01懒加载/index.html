@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js
+"></script>
+    <title>demo lazyload</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+        .layout {
+            margin: 0 auto;
+            width: 1000px;
+        }
+        .lazyload img {
+            width: 300px;
+            height: 400px;
+        }
+        .img-ct {
+            margin-left: -50px;
+            overflow: auto;
+        }
+        .item {
+            float: left;
+            margin-left: 50px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="lazyload">
+    <div class="layout">
+        <ul class="img-ct">
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+            <li class="item">
+                <a href="javascript:void(0)"><img data-img="img/Tsingtao.jpeg" src="img/blank.jpg"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var lazyLoad = (function(){
+        var clock;
+
+        function init(){
+            $(window).on("scroll", function(){
+                if (clock) {
+                    clearTimeout(clock);
+                }
+                clock = setTimeout(function(){
+                    checkShow();
+                }, 200);
+            })
+            checkShow();
+        }
+
+        function checkShow(){
+            //1,获得class里面的img标签
+            $(".lazyload img").each(function(){
+                //2,获得当前的图片节点
+                var $cur =$(this);
+                //3,判断isLoaded是否有值，如果有值说明已经下载了图片，就返回
+                if($cur.attr('isLoaded')){
+                    return;
+                }
+                //4,判断当前的图片节点是否在可视区域
+                if(shouldShow($cur)){
+                    showImg($cur);
+                }
+            })
+        }
+        function shouldShow($node){
+            //1,获得滑块的最上面的Y坐标
+            var scrollTop = $(window).scrollTop();
+            //2,获得当前窗口的高度
+            var winH = $(window).height();
+            //3,获得节点最上面的Y坐标
+            var top = $node.offset().top;
+            if(top < winH + scrollTop){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function showImg($node){
+            $node.attr('src', $node.attr('data-img'));
+            $node.attr('isLoaded', true);
+        }
+        return {
+            init: init
+        }
+    })()
+    lazyLoad.init();
+</script>
+</body>
+</html>

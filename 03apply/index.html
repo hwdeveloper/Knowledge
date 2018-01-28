@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+<script>
+    /*定义一个人类*/
+    function Person(name,age)
+    {
+        this.name=name;
+        this.age=age;
+    }
+    /*定义一个学生类*/
+    function Student(name,age,number,grade)
+    {
+        Person.apply(this,arguments);
+        this.grade=grade;
+    }
+    //创建一个学生类
+    var student=new Student("qian",21,"一年级");
+    //测试
+    alert("name:"+student.name+"\n"+"age:"+student.age+"\n"+"grade:"+student.grade);
+
+
+</script>
+
+</head>
+<body>
+
+<!--ng-app 指令告诉 AngularJS，div 元素是 AngularJS 应用程序 的"所有者"。-->
+<div ng-app="">
+
+</div>
+
+</body>
+</html>
