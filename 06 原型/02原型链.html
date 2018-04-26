@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>H5 新属性</title>
+
+    <script>
+        function SuperType(){
+            this.property = true;
+        }
+
+        SuperType.property.getSuperType = function(){
+            return this.property
+        }
+
+        function SubType(){
+            this.subproperty = false;
+        }
+        //继承SuperType
+        SubType.prototype = new SubperType();
+        SubType.prototype.getSubValue = function(){
+            return this.subproperty;
+        }
+
+        var instance = new SuperType();
+        alert(instance.getSubValue());
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>
